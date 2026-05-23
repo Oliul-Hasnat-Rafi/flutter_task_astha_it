@@ -7,4 +7,6 @@ abstract class AppStrings {
   static const String defaultErrorMessage =
       'Something went wrong. Please, try again later.';
   static const String alreadySendSpotRequest = 'Already send spot request';
+  static const String noInternetConnection =
+      'No internet connection. Please check your network and try again.';
 }

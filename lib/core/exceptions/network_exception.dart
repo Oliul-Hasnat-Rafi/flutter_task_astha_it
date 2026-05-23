@@ -12,6 +12,10 @@ class NetworkExceptionV2 implements Exception {
   }
 }
 
+class NoInternetException extends NetworkExceptionV2 {
+  NoInternetException(ErrorModel errorModel) : super(errorModel: errorModel);
+}
+
 class NotFoundException extends NetworkExceptionV2 {
   NotFoundException(ErrorModel errorModel) : super(errorModel: errorModel);
 }

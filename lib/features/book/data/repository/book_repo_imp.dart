@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:dartz/dartz.dart';
+import '../../../../core/exceptions/network_exception.dart';
 import '../../../../core/utils/logger.dart';
+import '../../../../core/values/app_strings.dart';
 import '../../data/model/res_model/book_model.dart';
 import '../../domain/entities/book_list_entity.dart';
 import '../../domain/repositories/book_repositories.dart';
@@ -26,6 +29,10 @@ class BookRepoImp implements BookRepository {
       } else {
         return Left('Error: ${response.statusCode}');
       }
+    } on NoInternetException catch (_) {
+      return const Left(AppStrings.noInternetConnection);
+    } on SocketException catch (_) {
+      return const Left(AppStrings.noInternetConnection);
     } on Exception catch (e) {
       Log.info(e.toString());
       return Left('Error: $e');
@@ -44,6 +51,10 @@ class BookRepoImp implements BookRepository {
       } else {
         return Left('Error: ${response.statusCode}');
       }
+    } on NoInternetException catch (_) {
+      return const Left(AppStrings.noInternetConnection);
+    } on SocketException catch (_) {
+      return const Left(AppStrings.noInternetConnection);
     } on Exception catch (e) {
       Log.info(e.toString());
       return Left('Error: $e');

@@ -237,6 +237,13 @@ class RestClient {
           message: AppStrings.defaultErrorMessage,
         ));
       case DioErrorType.other:
+        if (error.error is SocketException) {
+          throw NoInternetException(
+            ErrorModel(
+              message: AppStrings.noInternetConnection,
+            ),
+          );
+        }
         throw DefaultException(
           ErrorModel(
             message: AppStrings.defaultErrorMessage,

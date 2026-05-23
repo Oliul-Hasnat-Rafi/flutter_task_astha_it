@@ -20,10 +20,7 @@ class ErrorView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const CustomTextBody.L(text:  'Error loading books',
-            ),
-          const SizedBox(height: AppValues.halfPadding),
-          CustomTextBody(text: state.message,
+                CustomTextBody(text: state.message,
               
               textAlign: TextAlign.center),
           const SizedBox(height: AppValues.padding),
