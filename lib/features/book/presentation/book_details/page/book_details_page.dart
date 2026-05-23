@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:on_process_button_widget/on_process_button_widget.dart';
 import '../../../../../core/base/widgets/text.dart';
 import '../../../data/model/res_model/book_model.dart';
@@ -22,9 +23,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<BookDetailBloc>()
-        .add(BookDetailFetchEvent(bookId: widget.bookId));
+    context.read<BookDetailBloc>().add(
+      BookDetailFetchEvent(bookId: widget.bookId),
+    );
   }
 
   @override
@@ -37,9 +38,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           onRetry: () async {
             await Future.delayed(const Duration(seconds: 2));
             try {
-              context
-                  .read<BookDetailBloc>()
-                  .add(BookDetailFetchEvent(bookId: widget.bookId));
+              context.read<BookDetailBloc>().add(
+                BookDetailFetchEvent(bookId: widget.bookId),
+              );
             } catch (e) {
               debugPrint(e.toString());
             }
@@ -262,7 +263,7 @@ class _DescriptionSection extends StatelessWidget {
           color: colorstheme.onSurfaceVariant,
         ),
         description != null
-            ? CustomTextBody.S(text: description!)
+            ? Html(data: description!)
             : CustomTextBody.S(
                 text: 'No description available for this book.',
                 color: colorstheme.onSurfaceVariant,
