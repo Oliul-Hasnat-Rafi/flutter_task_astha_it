@@ -15,5 +15,5 @@ abstract class BookRepository {
    
   });
 
-  Future<dynamic> getBookDetail({required int bookId});
+  Future<dynamic> getBookDetail({required String bookId});
 }

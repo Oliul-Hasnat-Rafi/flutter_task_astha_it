@@ -25,4 +25,3 @@ class BookOpenDetailEvent extends BookEvent {
   final String bookId;
   BookOpenDetailEvent({required this.bookId});
 }
-

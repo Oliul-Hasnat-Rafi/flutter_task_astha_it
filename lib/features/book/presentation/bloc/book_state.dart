@@ -48,3 +48,7 @@ class BookError extends BookState {
 }
 
 
+class BookDetailLoaded extends BookState {
+  final dynamic bookDetail;
+  BookDetailLoaded({required this.bookDetail});
+}

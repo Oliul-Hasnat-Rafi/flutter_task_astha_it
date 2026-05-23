@@ -20,7 +20,7 @@ class BookUseCase {
     );
   }
 
-  Future<dynamic> getBookDetail({required int bookId}) async {
+  Future<dynamic> getBookDetail({required String bookId}) async {
     return await bookRepository.getBookDetail(bookId: bookId);
   }
 }
