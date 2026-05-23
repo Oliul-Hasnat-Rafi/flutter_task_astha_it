@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordLabel => 'Password';
 
   @override
-  String get home => 'Home';
+  String get book => 'book';
 
   @override
   String get profile => 'Profile';

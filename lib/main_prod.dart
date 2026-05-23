@@ -14,7 +14,8 @@ void main() async {
   final local = await CacheService.instance.retrieveLanguage();
   EnvConfig prodConfig = EnvConfig(
       appName: "Production",
-      baseUrl: "https://gtrbd.net/chitraupdateapi/api/Auth/register",
+      baseUrl: "https://www.googleapis.com/books/v1/",
+      googleBooksApiKey: "AIzaSyB62OBTAG-MgCSu5OpqhdDUGocEGMb2meY",
       themeMode: themeMode == 'light' ? ThemeMode.light : ThemeMode.dark,
       locale: local == 'en' ? const Locale('en') : const Locale('bn'));
 

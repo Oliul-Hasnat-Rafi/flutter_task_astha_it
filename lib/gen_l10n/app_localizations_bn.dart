@@ -30,7 +30,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get passwordLabel => 'পাসওয়ার্ড';
 
   @override
-  String get home => 'হোম';
+  String get book => 'হোম';
 
   @override
   String get profile => 'প্রোফাইল';

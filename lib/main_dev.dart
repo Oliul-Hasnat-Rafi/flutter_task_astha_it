@@ -11,6 +11,7 @@ Future<void> main() async {
   EnvConfig devConfig = EnvConfig(
       appName: "Development",
       baseUrl: "xyz",
+      googleBooksApiKey: "AIzaSyB62OBTAG-MgCSu5OpqhdDUGocEGMb2meY",
       themeMode: themeMode == 'light' ? ThemeMode.light : ThemeMode.dark,
       locale: local == 'en' ? const Locale('en') : const Locale('bn'));
 

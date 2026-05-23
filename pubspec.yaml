@@ -30,6 +30,8 @@ dependencies:
   go_router: ^10.0.0
   url_launcher: ^6.1.14
   flutter_markdown: ^0.6.17+2
+  on_process_button_widget: ^2.0.12
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -45,8 +47,6 @@ flutter:
   assets:
     # - .env
     - lib/features/landing/presentation/assets/image/
-    - lib/features/sign_in/presentation/assets/svg/
-
 flutter_intl:
   enabled: true
   class_name: AppLocalizations

@@ -6,6 +6,7 @@ import '../core/values/app_values.dart';
 class EnvConfig {
   final String appName;
   final String baseUrl;
+  final String googleBooksApiKey;
   final Locale locale;
   final ThemeMode themeMode;
 
@@ -14,6 +15,7 @@ class EnvConfig {
   EnvConfig({
     required this.appName,
     required this.baseUrl,
+    required this.googleBooksApiKey,
     required this.themeMode,
     required this.locale,
   }) {

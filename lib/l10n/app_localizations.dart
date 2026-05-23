@@ -23,7 +23,7 @@ import 'app_localizations_en.dart';
 /// return MaterialApp(
 ///   localizationsDelegates: AppLocalizations.localizationsDelegates,
 ///   supportedLocales: AppLocalizations.supportedLocales,
-///   home: MyApplicationHome(),
+///   book: MyApplicationbook(),
 /// );
 /// ```
 ///
@@ -137,11 +137,11 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get passwordLabel;
 
-  /// No description provided for @home.
+  /// No description provided for @book.
   ///
   /// In en, this message translates to:
-  /// **'Home'**
-  String get home;
+  /// **'book'**
+  String get book;
 
   /// No description provided for @profile.
   ///

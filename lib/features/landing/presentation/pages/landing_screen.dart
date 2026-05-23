@@ -33,11 +33,9 @@ class _LandingScreenState extends State<LandingScreen> {
         if (state.landingStatus == LandingStatus.initial) {
           context.read<LandingBloc>().add(CountDown());
         } else {
-          if (state.token == null) {
-            context.goNamed(Routes.signIn);
-          } else {
-            context.goNamed(Routes.home);
-          }
+         
+            context.goNamed(Routes.book);
+      
         }
       }, builder: (context, state) {
         return SizedBox(

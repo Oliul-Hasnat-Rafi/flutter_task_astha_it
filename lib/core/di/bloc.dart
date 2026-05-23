@@ -5,9 +5,6 @@ Future<void> _initBlocs() async {
   sl.registerFactory(
     () => LandingBloc(const LandingState(landingStatus: LandingStatus.initial)),
   );
-  sl.registerFactory(
-    () =>
-        SignUpBloc(signUpUseCase: sl.call(), otpVerificationUseCase: sl.call()),
-  );
-  sl.registerFactory(() => SignInBloc(signInUseCase: sl.call()));
+  sl.registerFactory(() => BookBloc(bookUseCase: sl.call()));
+
 }
