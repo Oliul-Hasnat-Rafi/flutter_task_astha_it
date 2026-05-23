@@ -4,8 +4,7 @@ import 'package:flutter_task_astha_it/core/routes/routes.dart';
 import 'package:flutter_task_astha_it/features/landing/presentation/pages/landing_screen.dart';
 import 'package:flutter_task_astha_it/features/settings/presentation/pages/settings_screen.dart';
 import 'package:flutter_task_astha_it/features/book/presentation/page/book_screen.dart';
-import 'package:flutter_task_astha_it/features/book/presentation/page/book_details_page.dart';
-import 'package:flutter_task_astha_it/features/book/data/model/res_model/book_model.dart';
+import 'package:flutter_task_astha_it/features/book/presentation/book_details/page/book_details_page.dart';
 
 
 class RouteGenerator {
@@ -34,17 +33,17 @@ class RouteGenerator {
         name: Routes.bookDetails,
         path: "/${Routes.bookDetails}/:bookId",
         builder: (context, state) {
-          final book = state.extra as BookModel?;
-          if (book == null) {
+          final bookId = state.pathParameters['bookId'];
+          if (bookId == null || bookId.isEmpty) {
             return const ErrorPage();
           }
-          return BookDetailsPage(book: book);
+          return BookDetailsPage(bookId: bookId);
         },
       ),
       GoRoute(
         name: Routes.settings,
         path: "/${Routes.settings}",
-        builder: (context, state) =>  SettingsScreen(),
+        builder: (context, state) => SettingsScreen(),
       ),
     ],
   );

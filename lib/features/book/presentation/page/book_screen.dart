@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_task_astha_it/core/routes/routes.dart';
-import 'package:go_router/go_router.dart';
 import '../../../../core/base/widgets/base_setting_row.dart';
 import '../../../../core/base/widgets/custom_text_field_widget.dart';
 import '../../../../core/values/app_values.dart';
@@ -56,37 +54,21 @@ class _BookScreenState extends State<BookScreen> {
         );
   }
 
-  void _navigateToDetail(BookLoaded state, String bookId) {
-    final book = state.books.firstWhere(
-      (b) => b.id == bookId,
-      orElse: () => state.books.first,
-    );
-    context.pushNamed(Routes.bookDetails, extra: book);
-  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BookBloc, BookState>(
-      listenWhen: (_, current) =>
-          current is BookLoaded && current.navigateToBookId != null,
-      listener: (context, state) {
-        if (state is BookLoaded && state.navigateToBookId != null) {
-          _navigateToDetail(state, state.navigateToBookId!);
-        }
-      },
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Books'), elevation: 0, actions: const [
-           ChangeSetting(),
-        ],),
-        body: Padding(
-          padding: const EdgeInsets.all(AppValues.padding / 2),
-          child: Column(
-            spacing: AppValues.padding / 2,
-            children: [
-              _buildSearchBar(),
-              Expanded(child: _buildBookList()),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Books'), elevation: 0, actions: const [
+         ChangeSetting(),
+      ],),
+      body: Padding(
+        padding: const EdgeInsets.all(AppValues.padding / 2),
+        child: Column(
+          spacing: AppValues.padding / 2,
+          children: [
+            _buildSearchBar(),
+            Expanded(child: _buildBookList()),
+          ],
         ),
       ),
     );

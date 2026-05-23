@@ -1,3 +1,5 @@
+import '../../data/model/res_model/book_model.dart';
+
 abstract class BookState {}
 
 class BookInitial extends BookState {}
@@ -9,14 +11,12 @@ class BookLoaded extends BookState {
   final int currentPage;
   final bool hasReachedMax;
   final String currentQuery;
-  final String? navigateToBookId;  
 
   BookLoaded({
     required this.books,
     required this.currentPage,
     required this.hasReachedMax,
     required this.currentQuery,
-    this.navigateToBookId,
   });
 
   BookLoaded copyWith({
@@ -24,14 +24,12 @@ class BookLoaded extends BookState {
     int? currentPage,
     bool? hasReachedMax,
     String? currentQuery,
-    String? navigateToBookId,
   }) {
     return BookLoaded(
       books: books ?? this.books,
       currentPage: currentPage ?? this.currentPage,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
       currentQuery: currentQuery ?? this.currentQuery,
-      navigateToBookId: navigateToBookId,
     );
   }
 }
@@ -47,8 +45,15 @@ class BookError extends BookState {
   BookError({required this.message});
 }
 
+// Detail-specific states
+class BookDetailLoading extends BookState {}
 
 class BookDetailLoaded extends BookState {
-  final dynamic bookDetail;
-  BookDetailLoaded({required this.bookDetail});
+  final BookModel book;
+  BookDetailLoaded({required this.book});
+}
+
+class BookDetailError extends BookState {
+  final String message;
+  BookDetailError({required this.message});
 }

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import '../../data/model/res_model/book_model.dart';
 import '../entities/book_list_entity.dart';
 import '../repositories/book_repositories.dart';
 
@@ -10,17 +11,15 @@ class BookUseCase {
     required String query,
     required int pageSize,
     required int pageNumber,
-    
   }) async {
     return await bookRepository.getBooks(
       query: query,
       pageSize: pageSize,
       pageNumber: pageNumber,
-      
     );
   }
 
-  Future<dynamic> getBookDetail({required String bookId}) async {
+  Future<Either<String, BookModel>> getBookDetail({required String bookId}) async {
     return await bookRepository.getBookDetail(bookId: bookId);
   }
 }

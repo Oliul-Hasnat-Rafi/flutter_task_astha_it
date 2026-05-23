@@ -44,10 +44,10 @@ class BookDatasourceImp implements BookDatasource {
 
   @override
   Future<Response> getBookDetail({
-    required int bookId,
+    required String bookId,
   }) async {
     final apiKey = BuildConfig.instance.config.googleBooksApiKey;
-    
+
     final response = await restClient.get(
       APIType.PUBLIC,
       '${ApiEndPoints.booklist}/$bookId',

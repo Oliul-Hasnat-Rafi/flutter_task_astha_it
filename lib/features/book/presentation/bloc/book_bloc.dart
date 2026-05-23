@@ -74,42 +74,42 @@ class BookBloc extends Bloc<BookEvent, BookState> {
     );
   }
 
-Future<void> _onLoadMoreBooks(
-  BookLoadMoreBooksEvent event,
-  Emitter<BookState> emit,
-) async {
-  final currentState = state;
-  if (currentState is! BookLoaded || currentState.hasReachedMax) return;
+  Future<void> _onLoadMoreBooks(
+    BookLoadMoreBooksEvent event,
+    Emitter<BookState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is! BookLoaded || currentState.hasReachedMax) return;
 
-  emit(BookLoadingMore(
-    books: currentState.books,
-    currentQuery: currentState.currentQuery,
-  ));
+    emit(BookLoadingMore(
+      books: currentState.books,
+      currentQuery: currentState.currentQuery,
+    ));
 
-  final nextPage = currentState.currentPage + 1;
-  final result = await bookUseCase.getBooks(
-    query: currentState.currentQuery,
-    pageSize: event.pageSize,
-    pageNumber: nextPage,
-  );
+    final nextPage = currentState.currentPage + 1;
+    final result = await bookUseCase.getBooks(
+      query: currentState.currentQuery,
+      pageSize: event.pageSize,
+      pageNumber: nextPage,
+    );
 
-  result.fold(
-    (error) => emit(BookError(message: error)),
-    (newBooks) {
-      final existingIds = currentState.books.map((b) => b.id).toSet();
-      final uniqueNew = newBooks.products
-          .where((b) => !existingIds.contains(b.id))
-          .toList();
+    result.fold(
+      (error) => emit(BookError(message: error)),
+      (newBooks) {
+        final existingIds = currentState.books.map((b) => b.id).toSet();
+        final uniqueNew = newBooks.products
+            .where((b) => !existingIds.contains(b.id))
+            .toList();
 
-      emit(BookLoaded(
-        books: [...currentState.books, ...uniqueNew],
-        currentPage: nextPage,
-        hasReachedMax: _hasReachedMax(newBooks.products.length, event.pageSize),
-        currentQuery: currentState.currentQuery,
-      ));
-    },
-  );
-}
+        emit(BookLoaded(
+          books: [...currentState.books, ...uniqueNew],
+          currentPage: nextPage,
+          hasReachedMax: _hasReachedMax(newBooks.products.length, event.pageSize),
+          currentQuery: currentState.currentQuery,
+        ));
+      },
+    );
+  }
 
   Future<void> _onRefreshBooks(
     BookRefreshBooksEvent event,
@@ -139,14 +139,11 @@ Future<void> _onLoadMoreBooks(
     BookOpenDetailEvent event,
     Emitter<BookState> emit,
   ) async {
-    /// get single book details 
-     final result = await bookUseCase.getBookDetail(bookId: event.bookId);
-      result.fold(
-        (error) => emit(BookError(message: error)),
-        (bookDetail) => emit(BookDetailLoaded(bookDetail: bookDetail)),
-      );
+    emit(BookDetailLoading());
+    final result = await bookUseCase.getBookDetail(bookId: event.bookId);
+    result.fold(
+      (error) => emit(BookDetailError(message: error)),
+      (book) => emit(BookDetailLoaded(book: book)),
+    );
   }
-
-
- 
 }
