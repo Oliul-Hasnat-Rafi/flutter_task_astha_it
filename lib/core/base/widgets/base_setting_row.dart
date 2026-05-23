@@ -19,23 +19,23 @@ class ChangeSetting extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.max,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppValues.halfPadding),
-            child: Text("বাংলা"),
-          ),
-          CupertinoSwitch(
-              value: state.locale == const Locale('en'),
-              applyTheme: true,
-              trackColor: AppColors.colorPrimary,
-              autofocus: true,
-              onChanged: (v) {
-                context.read<BaseBloc>().add(ChangeLanguageEvent(
-                    locale: Locale(v == true ? 'en' : 'bn')));
-              }),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: AppValues.halfPadding),
-            child: Text("English"),
-          ),
+          // const Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: AppValues.halfPadding),
+          //   child: Text("বাংলা"),
+          // ),
+          // CupertinoSwitch(
+          //     value: state.locale == const Locale('en'),
+          //     applyTheme: true,
+          //     trackColor: AppColors.colorPrimary,
+          //     autofocus: true,
+          //     onChanged: (v) {
+          //       context.read<BaseBloc>().add(ChangeLanguageEvent(
+          //           locale: Locale(v == true ? 'en' : 'bn')));
+          //     }),
+          // const Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: AppValues.halfPadding),
+          //   child: Text("English"),
+          // ),
           IconButton(
               onPressed: () {
                 context.read<BaseBloc>().add(ChangeThemeEvent(

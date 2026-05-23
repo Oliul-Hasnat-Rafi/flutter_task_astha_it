@@ -8,7 +8,7 @@ import '../../features/book/data/datasource/book_datasource_imp.dart';
 import '../../features/book/data/repository/book_repo_imp.dart';
 import '../../features/book/domain/repositories/book_repositories.dart';
 import '../../features/book/domain/use_cases/book_use_case.dart';
-import '../../features/book/presentation/bloc/home_bloc.dart';
+import '../../features/book/presentation/bloc/book_bloc.dart';
 import '../../features/landing/presentation/blocs/landing_state.dart';
 
 import '../network/rest_client.dart';

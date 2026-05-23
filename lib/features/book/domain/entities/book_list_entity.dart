@@ -7,7 +7,6 @@ class BookListEntity {
   });
 
   factory BookListEntity.fromJson(Map<String, dynamic> json) {
-    // Handle both Google Books API response (items) and custom format (products)
     final items = json['items'] as List<dynamic>? ?? json['products'] as List<dynamic>? ?? [];
     return BookListEntity(
       products: items

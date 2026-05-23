@@ -5,8 +5,7 @@ abstract class BookDatasource {
     required String query, 
     required int pageSize, 
     required int pageNumber,
-    String? sortBy,
-    String? order,
+  
   });
 
   Future<Response> getBookDetail({required int bookId});

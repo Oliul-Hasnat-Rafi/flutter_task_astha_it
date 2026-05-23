@@ -16,17 +16,12 @@ class BookDatasourceImp implements BookDatasource {
     required String query,
     required int pageSize,
     required int pageNumber,
-    String? sortBy,
-    String? order,
+    
   }) async {
-    // Use BuildConfig to get the API key
     final apiKey = BuildConfig.instance.config.googleBooksApiKey;
     
-    // Default to 'bestseller' if query is empty
     final searchQuery = query.isEmpty ? 'bestseller' : query;
-    
-    // Google Books API uses 0-indexed startIndex
-    // pageNumber = 0 means startIndex = 0
+  
     final startIndex = pageNumber * pageSize;
 
     final Map<String, dynamic> queryParams = {
@@ -36,10 +31,7 @@ class BookDatasourceImp implements BookDatasource {
       'key': apiKey,
     };
 
-    if (sortBy != null && order != null) {
-      queryParams['orderBy'] = sortBy;
-      queryParams['sortOrder'] = order;
-    }
+   
 
     final response = await restClient.get(
       APIType.PUBLIC,

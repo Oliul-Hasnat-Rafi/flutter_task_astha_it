@@ -13,16 +13,14 @@ class BookRepoImp implements BookRepository {
     required String query,
     required int pageSize,
     required int pageNumber,
-    String? sortBy,
-    String? order,
+   
   }) async {
     try {
       final response = await bookDatasource.getBooks(
         query: query,
         pageSize: pageSize,
         pageNumber: pageNumber,
-        sortBy: sortBy,
-        order: order,
+       
       );
       if (response.statusCode == 200) {
         return Right(BookListEntity.fromJson(response.data));

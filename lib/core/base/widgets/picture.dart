@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_task_astha_it/core/base/widgets/size_builder.dart';
+import 'package:flutter_task_astha_it/core/values/app_values.dart';
 
 class PictureFromLink extends StatelessWidget {
   const PictureFromLink({
@@ -39,6 +40,9 @@ class PictureFromLink extends StatelessWidget {
     Widget image = CachedNetworkImage(
       imageUrl: imageLink!,
       fit: fit,
+  width: double.infinity, 
+  height: double.infinity,  
+  
       memCacheWidth: 800,
   
       placeholder: (context, url) {

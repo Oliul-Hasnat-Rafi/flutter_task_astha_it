@@ -12,8 +12,7 @@ abstract class BookRepository {
     required String query,
     required int pageSize,
     required int pageNumber,
-    String? sortBy,
-    String? order,
+   
   });
 
   Future<dynamic> getBookDetail({required int bookId});
