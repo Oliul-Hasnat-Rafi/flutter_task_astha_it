@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_process_button_widget/on_process_button_widget.dart';
 
-import '../../../../core/base/widgets/text.dart';
-import '../../../../core/values/app_values.dart';
-import '../bloc/book_bloc.dart';
-import '../bloc/book_event.dart';
-import '../bloc/book_state.dart';
+import '../../../../../core/base/widgets/text.dart';
+import '../../../../../core/values/app_values.dart';
+import '../bloc/book_list_bloc.dart';
+import '../bloc/book_list_event.dart';
+import '../bloc/book_list_state.dart';
 
 class ErrorView extends StatelessWidget {
   final BookError state;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/base/widgets/text.dart';
-import '../../../../core/values/app_values.dart';
+import '../../../../../core/base/widgets/text.dart';
+import '../../../../../core/values/app_values.dart';
 
 class EmptyView extends StatelessWidget {
   final String query;

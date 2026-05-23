@@ -5,7 +5,7 @@ import 'package:flutter_task_astha_it/core/routes/error_screen.dart';
 import 'package:flutter_task_astha_it/core/routes/routes.dart';
 import 'package:flutter_task_astha_it/features/landing/presentation/pages/landing_screen.dart';
 import 'package:flutter_task_astha_it/features/settings/presentation/pages/settings_screen.dart';
-import 'package:flutter_task_astha_it/features/book/presentation/page/book_screen.dart';
+import 'package:flutter_task_astha_it/features/book/presentation/book_list/page/book_list_screen.dart';
 import 'package:flutter_task_astha_it/features/book/presentation/book_details/page/book_details_page.dart';
 import 'package:flutter_task_astha_it/features/book/presentation/book_details/bloc/book_detail_bloc.dart';
 import 'package:flutter_task_astha_it/core/di/injection_container.dart' as di;

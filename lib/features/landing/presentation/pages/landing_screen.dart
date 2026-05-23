@@ -45,7 +45,7 @@ class _LandingScreenState extends State<LandingScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              SizedBox(width: 150, child: Image.asset(AppAssets.appLogo)),
+              SizedBox(width: 300, child: Image.asset(AppAssets.appLogo)),
             ],
           ),
         );

@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
-import '../../../../core/values/app_values.dart';
-import '../../domain/use_cases/book_use_case.dart';
-import 'book_event.dart';
-import 'book_state.dart';
+import '../../../../../core/values/app_values.dart';
+import '../../../domain/use_cases/book_use_case.dart';
+import 'book_list_event.dart';
+import 'book_list_state.dart';
 
 class BookBloc extends Bloc<BookEvent, BookState> {
   BookBloc({required this.bookUseCase}) : super(BookInitial()) {

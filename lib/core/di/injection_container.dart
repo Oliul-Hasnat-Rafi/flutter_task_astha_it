@@ -9,7 +9,7 @@ import '../../features/book/data/repository/book_repo_imp.dart';
 import '../../features/book/domain/repositories/book_repositories.dart';
 import '../../features/book/domain/use_cases/book_use_case.dart';
 import '../../features/book/domain/use_cases/book_detail_use_case.dart';
-import '../../features/book/presentation/bloc/book_bloc.dart';
+import '../../features/book/presentation/book_list/bloc/book_list_bloc.dart';
 import '../../features/book/presentation/book_details/bloc/book_detail_bloc.dart';
 import '../../features/landing/presentation/blocs/landing_state.dart';
 

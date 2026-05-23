@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/base/widgets/base_setting_row.dart';
-import '../../../../core/base/widgets/custom_text_field_widget.dart';
-import '../../../../core/values/app_values.dart';
-import '../bloc/book_bloc.dart';
-import '../bloc/book_event.dart';
-import '../bloc/book_state.dart';
+import '../../../../../core/base/widgets/base_setting_row.dart';
+import '../../../../../core/base/widgets/custom_text_field_widget.dart';
+import '../../../../../core/values/app_values.dart';
+import '../bloc/book_list_bloc.dart';
+import '../bloc/book_list_event.dart';
+import '../bloc/book_list_state.dart';
 import '../widget/book_list_widget.dart';
 import '../widget/error_widget.dart';
 

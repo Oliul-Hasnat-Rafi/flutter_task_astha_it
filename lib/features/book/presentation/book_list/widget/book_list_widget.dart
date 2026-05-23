@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_astha_it/features/book/presentation/widget/book_card_widget.dart';
-import 'package:flutter_task_astha_it/features/book/presentation/widget/empty_widget.dart';
+import 'package:flutter_task_astha_it/features/book/presentation/book_list/widget/book_card_widget.dart';
+import 'package:flutter_task_astha_it/features/book/presentation/book_list/widget/empty_widget.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/routes.dart';
-import '../../../../core/values/app_values.dart';
+import '../../../../../core/routes/routes.dart';
+import '../../../../../core/values/app_values.dart';
 
 class BooksGrid extends StatelessWidget {
   final List<dynamic> books;

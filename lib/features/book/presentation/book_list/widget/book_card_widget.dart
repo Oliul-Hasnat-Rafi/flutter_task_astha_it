@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../core/base/widgets/picture.dart';
-import '../../../../core/base/widgets/text.dart';
-import '../../../../core/values/app_values.dart';
-import '../widget/card.dart';
+import '../../../../../core/base/widgets/picture.dart';
+import '../../../../../core/base/widgets/text.dart';
+import '../../../../../core/values/app_values.dart';
+import 'card.dart';
 
 class BookCardWidget extends StatelessWidget {
   final String imageUrl;
