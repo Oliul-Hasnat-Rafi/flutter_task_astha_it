@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:on_process_button_widget/on_process_button_widget.dart';
 import '../../../../../core/base/widgets/text.dart';
 import '../../../data/model/res_model/book_model.dart';
-import '../../bloc/book_bloc.dart';
-import '../../bloc/book_event.dart';
-import '../../bloc/book_state.dart';
+import '../bloc/book_detail_bloc.dart';
+import '../bloc/book_detail_event.dart';
+import '../bloc/book_detail_state.dart';
 import '../../../../../core/base/widgets/picture.dart';
 import '../../../../../core/values/app_values.dart';
 
@@ -22,16 +22,14 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   @override
   void initState() {
     super.initState();
-    context.read<BookBloc>().add(BookOpenDetailEvent(bookId: widget.bookId));
+    context
+        .read<BookDetailBloc>()
+        .add(BookDetailFetchEvent(bookId: widget.bookId));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BookBloc, BookState>(
-      buildWhen: (_, current) =>
-          current is BookDetailLoading ||
-          current is BookDetailLoaded ||
-          current is BookDetailError,
+    return BlocBuilder<BookDetailBloc, BookDetailState>(
       builder: (context, state) => switch (state) {
         BookDetailLoaded() => _BookDetailView(book: state.book),
         BookDetailError() => _ErrorView(
@@ -39,9 +37,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           onRetry: () async {
             await Future.delayed(const Duration(seconds: 2));
             try {
-              context.read<BookBloc>().add(
-                BookOpenDetailEvent(bookId: widget.bookId),
-              );
+              context
+                  .read<BookDetailBloc>()
+                  .add(BookDetailFetchEvent(bookId: widget.bookId));
             } catch (e) {
               debugPrint(e.toString());
             }

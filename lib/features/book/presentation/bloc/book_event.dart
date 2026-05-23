@@ -20,8 +20,3 @@ class BookRefreshBooksEvent extends BookEvent {
   final int pageSize;
   BookRefreshBooksEvent({required this.pageSize});
 }
-
-class BookOpenDetailEvent extends BookEvent { 
-  final String bookId;
-  BookOpenDetailEvent({required this.bookId});
-}

@@ -13,7 +13,6 @@ class BookBloc extends Bloc<BookEvent, BookState> {
     on<BookSearchBooksEvent>(_onSearchBooks, transformer: _debounce());
     on<BookLoadMoreBooksEvent>(_onLoadMoreBooks, transformer: droppable());
     on<BookRefreshBooksEvent>(_onRefreshBooks);
-    on<BookOpenDetailEvent>(_onOpenDetail);
   }
 
   final BookUseCase bookUseCase;
@@ -132,18 +131,6 @@ class BookBloc extends Bloc<BookEvent, BookState> {
         hasReachedMax: _hasReachedMax(books.products.length, event.pageSize),
         currentQuery: currentQuery,
       )),
-    );
-  }
-
-  Future<void> _onOpenDetail(
-    BookOpenDetailEvent event,
-    Emitter<BookState> emit,
-  ) async {
-    emit(BookDetailLoading());
-    final result = await bookUseCase.getBookDetail(bookId: event.bookId);
-    result.fold(
-      (error) => emit(BookDetailError(message: error)),
-      (book) => emit(BookDetailLoaded(book: book)),
     );
   }
 }

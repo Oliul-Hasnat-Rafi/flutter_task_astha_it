@@ -1,4 +1,3 @@
-import '../../data/model/res_model/book_model.dart';
 
 abstract class BookState {}
 
@@ -43,17 +42,4 @@ class BookLoadingMore extends BookState {
 class BookError extends BookState {
   final String message;
   BookError({required this.message});
-}
-
-// Detail-specific states
-class BookDetailLoading extends BookState {}
-
-class BookDetailLoaded extends BookState {
-  final BookModel book;
-  BookDetailLoaded({required this.book});
-}
-
-class BookDetailError extends BookState {
-  final String message;
-  BookDetailError({required this.message});
 }

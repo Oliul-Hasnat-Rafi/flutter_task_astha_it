@@ -6,5 +6,7 @@ Future<void> _initBlocs() async {
     () => LandingBloc(const LandingState(landingStatus: LandingStatus.initial)),
   );
   sl.registerFactory(() => BookBloc(bookUseCase: sl.call()));
-
+  sl.registerFactory(
+    () => BookDetailBloc(getBookDetailUseCase: sl.call()),
+  );
 }
