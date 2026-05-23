@@ -67,6 +67,7 @@ lib/
 ├── flavors/
 │   ├── environment.dart         # Environment enum (DEVELOPMENT, QA, PRODUCTION)
 │   ├── env_config.dart          # EnvConfig (appName, baseUrl, apiKey, locale, themeMode)
+│   ├── env_loader.dart          # EnvLoader — loads & parses .env keys by flavor prefix
 │   └── build_config.dart        # Singleton BuildConfig — locks env on startup
 ├── l10n/
 │   ├── app_en.arb               # English strings
@@ -87,31 +88,58 @@ The app uses **Flutter Flavors** to support three distinct build environments. E
 ### How It Works
 
 ```
-Environment enum  ──▶  EnvConfig  ──▶  BuildConfig.instance  ──▶  App
+.env file  ──▶  EnvLoader.load(prefix)  ──▶  EnvConfig  ──▶  BuildConfig.instance  ──▶  App
 ```
 
 | File | Role |
 |------|------|
 | `flavors/environment.dart` | `enum Environment { DEVELOPMENT, QA, PRODUCTION }` |
+| `flavors/env_loader.dart` | Loads `.env` via `flutter_dotenv`, parses keys by flavor prefix, asserts required values |
 | `flavors/env_config.dart` | Holds `appName`, `baseUrl`, `googleBooksApiKey`, `locale`, `themeMode` |
 | `flavors/build_config.dart` | Thread-safe singleton; locks after first `instantiate()` call |
 
-Each entry point loads `.env` first, asserts required keys exist, then configures `BuildConfig`:
+Each entry point calls `EnvLoader.load(prefix)` which internally loads the `.env` file and validates the keys for that flavor:
+
+```dart
+// lib/flavors/env_loader.dart
+class EnvLoader {
+  static late final String baseUrl;
+  static late final String googleBooksApiKey;
+
+  static Future<void> load(String prefix) async {
+    await dotenv.load(fileName: ".env");
+    _parse(prefix, dotenv.env);
+  }
+
+  static void _parse(String prefix, Map<String, String> map) {
+    final url    = map['${prefix}_BASE_URL'];
+    final apiKey = map['${prefix}_GOOGLE_BOOKS_API_KEY'];
+
+    assert(url != null && url.isNotEmpty,
+        '${prefix}_BASE_URL is missing or empty in .env');
+    assert(apiKey != null && apiKey.isNotEmpty,
+        '${prefix}_GOOGLE_BOOKS_API_KEY is missing or empty in .env');
+
+    baseUrl           = url!;
+    googleBooksApiKey = apiKey!;
+  }
+}
+```
 
 ```dart
 // main_prod.dart
-await dotenv.load(fileName: ".env");
-assert(dotenv.env['PROD_BASE_URL'] != null, '❌ PROD_BASE_URL is missing from .env');
-assert(dotenv.env['PROD_GOOGLE_BOOKS_API_KEY'] != null, '❌ PROD_GOOGLE_BOOKS_API_KEY is missing from .env');
+await EnvLoader.load("PROD");   // loads .env and validates PROD_* keys
 
-EnvConfig prodConfig = EnvConfig(
-  appName: "Production",
-  baseUrl: dotenv.env['PROD_BASE_URL']!,
-  googleBooksApiKey: dotenv.env['PROD_GOOGLE_BOOKS_API_KEY']!,
-  themeMode: ...,
-  locale: ...,
+BuildConfig.instantiate(
+  envType: Environment.PRODUCTION,
+  envConfig: EnvConfig(
+    appName: "Production",
+    baseUrl: EnvLoader.baseUrl,
+    googleBooksApiKey: EnvLoader.googleBooksApiKey,
+    themeMode: ...,
+    locale: ...,
+  ),
 );
-BuildConfig.instantiate(envType: Environment.PRODUCTION, envConfig: prodConfig);
 await di.init();
 runApp(const MyApp());
 ```
@@ -120,11 +148,11 @@ runApp(const MyApp());
 
 ### Environment Table
 
-| Environment | Entry Point | `.env` Prefix | Example Base URL |
-|-------------|-------------|---------------|------------------|
-| Development | `lib/main_dev.dart` | `DEV_` | `https://dev.googleapis.com/books/v1/` |
-| QA | `lib/main_qa.dart` | `QA_` | `https://qa.googleapis.com/books/v1/` |
-| Production | `lib/main_prod.dart` | `PROD_` | `https://www.googleapis.com/books/v1/` |
+| Environment | Entry Point | `EnvLoader` Prefix | `.env` Keys Used |
+|-------------|-------------|-------------------|------------------|
+| Development | `lib/main_dev.dart` | `"DEV"` | `DEV_BASE_URL`, `DEV_GOOGLE_BOOKS_API_KEY` |
+| QA | `lib/main_qa.dart` | `"QA"` | `QA_BASE_URL`, `QA_GOOGLE_BOOKS_API_KEY` |
+| Production | `lib/main_prod.dart` | `"PROD"` | `PROD_BASE_URL`, `PROD_GOOGLE_BOOKS_API_KEY` |
 
 ---
 
@@ -197,31 +225,32 @@ flutter pub get
 
 ### 3. Configure Environment Variables
 
-Create a `.env` file in the **project root** (next to `pubspec.yaml`). A template is provided in `.env.example`:
+Create a `.env` file in the **project root** (next to `pubspec.yaml`). A ready-to-use template is provided:
 
 ```bash
 cp .env.example .env
 ```
 
-Then fill in your values:
+Then open `.env` and fill in your real values:
 
 ```env
 # Production
 PROD_BASE_URL=https://www.googleapis.com/books/v1/
-PROD_GOOGLE_BOOKS_API_KEY=your_api_key_here
+PROD_GOOGLE_BOOKS_API_KEY=your_production_api_key_here
 
 # QA
 QA_BASE_URL=https://qa.googleapis.com/books/v1/
-QA_GOOGLE_BOOKS_API_KEY=your_api_key_here
+QA_GOOGLE_BOOKS_API_KEY=your_qa_api_key_here
 
 # Development
 DEV_BASE_URL=https://dev.googleapis.com/books/v1/
-DEV_GOOGLE_BOOKS_API_KEY=your_api_key_here
+DEV_GOOGLE_BOOKS_API_KEY=your_dev_api_key_here
 ```
 
-Get your API key from [Google Cloud Console](https://console.cloud.google.com/).
+Get your Google Books API key from the [Google Cloud Console](https://console.cloud.google.com/).
 
-> ⚠️ **Never commit `.env` to Git.** It is already listed in `.gitignore`. The `.env.example` file (without real keys) is safe to commit.
+> ⚠️ **Never commit `.env` to Git.** It is already listed in `.gitignore`.
+> The `.env.example` file (no real keys) is safe to commit and acts as the canonical key reference for the team.
 
 ### 4. Run the App
 
