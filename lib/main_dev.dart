@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'core/services/local_storage/cache_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_task_astha_it/core/services/local_storage/cache_service.dart';
+import 'core/bloc/bloc_observer.dart';
+import 'core/di/injection_container.dart' as di;
 import 'flavors/build_config.dart';
 import 'flavors/env_config.dart';
 import 'flavors/environment.dart';
 import 'my_app.dart';
 
-Future<void> main() async {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   final themeMode = await CacheService.instance.retrieveTheme();
   final local = await CacheService.instance.retrieveLanguage();
   EnvConfig devConfig = EnvConfig(
       appName: "Development",
-      baseUrl: "xyz",
-      googleBooksApiKey: "AIzaSyB62OBTAG-MgCSu5OpqhdDUGocEGMb2meY",
+      baseUrl: dotenv.env['DEV_BASE_URL']!,
+      googleBooksApiKey: dotenv.env['DEV_GOOGLE_BOOKS_API_KEY']!,
       themeMode: themeMode == 'light' ? ThemeMode.light : ThemeMode.dark,
       locale: local == 'en' ? const Locale('en') : const Locale('bn'));
 
@@ -19,6 +25,8 @@ Future<void> main() async {
     envType: Environment.DEVELOPMENT,
     envConfig: devConfig,
   );
+  Bloc.observer = GlobalBlocObserver();
+  await di.init();
 
   runApp(const MyApp());
 }
